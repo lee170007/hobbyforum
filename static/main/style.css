@@ -1,0 +1,9 @@
+body{
+	background: white url("images/background.jpg")
+}
+
+.carousel-item img{
+	width: auto;
+  	height: 450px;
+  	max-height: 450px;
+}
