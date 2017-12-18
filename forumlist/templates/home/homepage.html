@@ -1,4 +1,4 @@
-{% extends 'home/base.html' %}
+{% extends 'base.html' %}
 {% load static %}
 
 <head></head>
@@ -9,7 +9,23 @@
 
 <!-- <h1>Welcome to football forum</h1> -->
 
-	{% block content %}
+{% block content %}
+
+{% if messages %}
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+  <ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+{% endif %}
+	
+
+
 	<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
 	  <ol class="carousel-indicators">
 	    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -59,15 +75,17 @@
     <img class="card-img-top" src="/media/{{post.post_image}}" alt="Card image cap" style="width:auto;height:auto;max-width:100%;max-height:100%">
       {% endif %}
     <div class="card-body">
-      <h4 class="card-title"><a href="{% url 'forumlist:detail' post.id %}">{{post.post_caption}}</a></h4>
+      <h4 class="card-title"><a href="{% url 'reply:addreply' post.id %}">{{post.post_caption}}</a></h4>
       <p class="card-text">{{post.post_content}}</p>
     </div>
     <div class="card-footer">
       <small class="text-muted">{{post.user_id}} </small>
       <small class="text-muted">Posted on {{post.post_date}} </small>
     </div>
-   </div> 
-   {% endfor %}
+   </div>
+    {% endfor %}
+  </div>
+   
 {% endblock %}
 
 </body>

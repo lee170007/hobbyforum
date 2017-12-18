@@ -8,6 +8,7 @@ from .serializers import PostSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+from django.contrib import messages
 
 # Create your views here.
 
@@ -30,6 +31,7 @@ class PostPage(TemplateView):
 	            post=form.save(commit=False)
 	            post.user_id = self.request.user
 	            form.save()
+	            messages.info(request, 'New post added just now!')
 	            return HttpResponseRedirect(reverse('forumlist:hw'))
 	    else:
 	        form = PostForm()

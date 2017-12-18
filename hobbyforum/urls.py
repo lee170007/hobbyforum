@@ -24,4 +24,6 @@ urlpatterns = [
     url(r'^user/', include('member.urls')),
     url(r'^$', RedirectView.as_view(url='/forumlist'), name='hw'),
     url(r'^forumlist/', include('forumlist.urls')),
+    url(r'^member/', include('member.urls')),
+    url(r'^reply/', include('reply.urls')),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
