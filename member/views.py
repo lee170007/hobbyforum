@@ -66,7 +66,8 @@ def register(request):
     }
     return render(request, 'member/register.html', context)
 
-class ListingFormView(TemplateView):
+class ListingFormView(LoginRequiredMixin,TemplateView):
+    login_url='/member/login_user'
     template_name = 'member/listing.html'
 
     # Display blank form

@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 {% block members_active %}active{% endblock %}
 
+<html>
+{% block title%} Member List{% endblock %}
  {% block navigation %}
     <!--Navigation Bar-->
     <nav class="navbar navbar-light bg-light">  
@@ -12,15 +14,20 @@
 
         <ul class="nav justify-content-end">
         {% if user.is_authenticated %}
+        <li class="nav-item">
+          <h4>Welcome, {{user.username}}</h4>
+        </li>
+        &nbsp;&nbsp;&nbsp;&nbsp;
         <li>
           <div class="dropdown">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               APIs
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <a class="dropdown-item" href="http://localhost:8000/forumlist/postapi/">Post API</a>
-              <a class="dropdown-item" href="http://localhost:8000/member/api/">Member API</a>
-              <a class="dropdown-item" href="http://localhost:8000/reply/replyapi/">Reply API</a>
+              <a class="dropdown-item" onclick="openInNewTab('http://localhost:8000/forumlist/postapi/');">Post API</a>
+              <a class="dropdown-item" onclick="openInNewTab('http://localhost:8000/member/api/');">Member API</a>
+              <a class="dropdown-item" onclick="openInNewTab('http://localhost:8000/reply/replyapi/');">Reply API</a>
+            </div>
             </div>
           </div>
         </li>
@@ -44,7 +51,7 @@
     {% endblock %}
 
 {% block body %}
-<div class="container">
+<div class="container" style = "background: white; margin-top: 50px;">
     
     {% if members %}
         <div class="row">
@@ -78,3 +85,4 @@
 
 </div>
 {% endblock %}
+</html>

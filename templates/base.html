@@ -1,7 +1,4 @@
  {% load staticfiles %}
- <!doctype html>
-<html lang="en">
-  
   <head>{% block head %}
     <meta charset="utf-8">
 
@@ -33,6 +30,10 @@
         <ul class="nav justify-content-end">
         {% if user.is_authenticated %}
         <li class="nav-item">
+          <h4>Welcome, {{user.username}}</h4>
+        </li>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <li class="nav-item">
           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong" >
             Post Now !
           </button>
@@ -43,9 +44,9 @@
               APIs
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <a class="dropdown-item" href="http://localhost:8000/forumlist/postapi/">Post API</a>
-              <a class="dropdown-item" href="http://localhost:8000/member/api/">Member API</a>
-              <a class="dropdown-item" href="http://localhost:8000/reply/replyapi/">Reply API</a>
+              <a class="dropdown-item" onclick="openInNewTab('http://localhost:8000/forumlist/postapi/');">Post API</a>
+              <a class="dropdown-item" onclick="openInNewTab('http://localhost:8000/member/api/');">Member API</a>
+              <a class="dropdown-item" onclick="openInNewTab('http://localhost:8000/reply/replyapi/');">Reply API</a>
             </div>
           </div>
         </li>
@@ -94,9 +95,4 @@
     {% block body %}
    
     {% endblock %}
-
-    {% block content %}
-   
-    {% endblock %}
   </body>
-</html>

@@ -9,6 +9,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from django.contrib import messages
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 # Create your views here.
 
@@ -16,11 +17,15 @@ class PostPage(TemplateView):
 	template_name = 'home/homepage.html'
 
 	def get(self, request):
-		all_posts =  Post.objects.all()
+		all_posts =  Post.objects.all().order_by('-post_date')
+		paginator = Paginator(all_posts, 5)
+		page = request.GET.get('page')
+		posts_page = paginator.get_page(page)
 		form = PostForm()
 		context = {
 			'all_posts' : all_posts,
-			'form': form
+			'form': form,
+			'posts_page':posts_page
 		}
 		return render(request,self.template_name,context)
 

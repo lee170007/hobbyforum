@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 {% load static %}
-
+<html>
     <head> 
-        <title>Post</title>
+        {% block title%} Reply Page{% endblock %}
     </head>
     
     <body>
@@ -17,15 +17,19 @@
 
         <ul class="nav justify-content-end">
         {% if user.is_authenticated %}
+        <li class="nav-item">
+          <h4 >Welcome, {{user.username}}</h4>
+        </li>
+        &nbsp;&nbsp;&nbsp;&nbsp;
         <li>
           <div class="dropdown">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               APIs
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <a class="dropdown-item" href="http://localhost:8000/forumlist/postapi/">Post API</a>
-              <a class="dropdown-item" href="http://localhost:8000/member/api/">Member API</a>
-              <a class="dropdown-item" href="http://localhost:8000/reply/replyapi/">Reply API</a>
+              <a class="dropdown-item" onclick="openInNewTab('http://localhost:8000/forumlist/postapi/');">Post API</a>
+              <a class="dropdown-item" onclick="openInNewTab('http://localhost:8000/member/api/');">Member API</a>
+              <a class="dropdown-item" onclick="openInNewTab('http://localhost:8000/reply/replyapi/');">Reply API</a>
             </div>
           </div>
         </li>
@@ -48,7 +52,7 @@
 
     {% endblock %}
 
-{% block content %}
+{% block body %}
 {% if messages %}
 <div class="alert alert-success alert-dismissible fade show" role="alert">
   <ul class="messages">
@@ -61,10 +65,10 @@
   </button>
 </div>
 {% endif %}
-          <div class="container">
+          <div class="container" style= "margin-top: 30px;">
           <div class="card">  
               {% if post.post_image != ''%}
-            <img class="rounded" src="/media/{{post.post_image}}" alt="Card image cap" style="width:300px;height:300px;">
+            <img class="card-img-top" src="/media/{{post.post_image}}" alt="Card image cap" style="width:auto;height:auto;max-width:50%;max-height:100%;display: block;margin: auto;">
               {% endif %}
             <div class="card-body">
               <h4 class="card-title">{{post.post_caption}}</h4>
@@ -78,23 +82,21 @@
        </div>
 
        <div class="container">
-           <ul class="list-group">
+           <ul class="list-group" >
               {% for reply in all_reply %}
               <li class="list-group-item">
                 {{reply.reply_content}}
                 {% if reply.reply_image != ''%}
                 <br>
-                <img src="/media/{{reply.reply_image}}" alt="Card image cap" style="width:auto;height:auto;max-width:100%;max-height:100%">
-                <br>
+                <img src="/media/{{reply.reply_image}}" alt="Card image cap" style="width:auto;height:auto;max-width:100%;max-height:100%;">
                 {% endif %}
                 <br>
-                <small class="text-muted">{{reply.user_id}} posted on {{reply.reply_date}}</small>
-              </li>
+                <small class="text-muted">{{reply.user_id}} replied on {{reply.reply_date}}</small>
               {% endfor %}
             </ul>
         </div>
         {% if user.is_authenticated %}
-        <div class="container">
+        <div class="container" style= "background: white; margin-top: 30px;">
             <h1>Reply Form</h1>
             <div style="width:30%">
                 <form method="post" enctype="multipart/form-data">
@@ -117,11 +119,12 @@
                         {{field}}
                     </div>
                     {% endfor %}
-                    <button class="btn btn-primary" style="width:100%">Submit</button>
+                    <button class="btn btn-primary" style="width:100%; margin-bottom: 30px">Submit</button>
                 </form>
             </div> 
         </div>
         {% endif %}  
 {% endblock %}
     </body>
+</html>
   

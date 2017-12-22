@@ -9,6 +9,7 @@ app_name = 'reply'
 urlpatterns = [
 	
 	 url(r'^replyapi/',views.ReplyList.as_view()),
+	 url(r'^(?P<post_id>[0-9]{2})+', views.ReplyDetail.as_view(), name = 'addreply'),
 	 url(r'^(?P<post_id>[0-9])+', views.ReplyDetail.as_view(), name = 'addreply'),
   	 
   	 #url(r'^(?P<post_id>[0-9])+', views.AddReplyFormView.as_view(), name = 'addreply'),
